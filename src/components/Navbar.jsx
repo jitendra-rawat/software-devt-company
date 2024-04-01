@@ -24,7 +24,8 @@ const Navbar = () => {
 
       {/* left section */}
       <div>
-        <h2 className='text-lg lg:text-3xl font-bold font-poppins cursor-pointer '>Radit Software Solutions </h2>
+    <Link to={'/'}>
+    <h2 className='text-lg lg:text-3xl font-bold font-poppins cursor-pointer '>Radit Software Solutions </h2>   </Link>  
       </div>
       
       {/* right section */}
