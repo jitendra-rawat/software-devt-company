@@ -2,10 +2,10 @@ import React from 'react';
 
 const ContactPage = () => {
   return (
-    <div className="max-w-7xl container mx-auto flex justify-center items-start h-screen py-28 ">
+    <div className="px-4 lg:px-0 lg:max-w-7xl container mx-auto flex flex-col lg:flex-row justify-center items-start lg:h-screen py-28 ">
 
         <div className="md:w-1/2 md:pr-8">
-          <h2 className="text-5xl font-poppins font-bold mb-8">WE ARE ALWAYS HERE TO HELP YOU.</h2>
+          <h2 className="text-3xl lg:text-5xl font-poppins font-bold mb-8">WE ARE ALWAYS HERE TO HELP YOU.</h2>
           <p className="mb-8 font-poppins text-xl ">Our development center resides in Tirupati and Bangalore India.</p>
         
           <div className="mb-4">
