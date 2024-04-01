@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaAngleDown } from "react-icons/fa6";
+import { FaAngleDown } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,29 +11,50 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleSubMenu = (index) => {
-    setActiveSubMenu(activeSubMenu === index ? null : index);
+  const openSubMenu = (index) => {
+    setActiveSubMenu(index);
   };
 
   const closeMenu = () => {
     setIsOpen(false);
+    setActiveSubMenu(null);
   };
 
+  useEffect(() => {
+    const closeSubmenuOnOutsideClick = (e) => {
+      if (!e.target.closest('.nav-item')) {
+        setActiveSubMenu(null);
+      }
+    };
+
+    if (isOpen) {
+      document.body.addEventListener('click', closeSubmenuOnOutsideClick);
+    } else {
+      document.body.removeEventListener('click', closeSubmenuOnOutsideClick);
+    }
+
+    return () => {
+      document.body.removeEventListener('click', closeSubmenuOnOutsideClick);
+    };
+  }, [isOpen]);
+
   return (
-    <nav className=' shadow-md shadow-red-100 mt-4 bg-transparent px-8 py-4  lg:max-w-7xl mx-auto container flex justify-between items-center'>
+    <nav className='shadow-md shadow-red-100 mt-4 bg-transparent px-8 py-4 lg:max-w-7xl mx-auto container flex justify-between items-center'>
 
       {/* left section */}
       <div>
-    <Link to={'/'}>
-    <h2 className='text-lg lg:text-3xl font-bold font-poppins cursor-pointer '>Radit Software Solutions </h2>   </Link>  
+        <Link to='/'>
+          <h2 className='text-lg lg:text-3xl font-bold font-poppins cursor-pointer'>Radit Software Solutions </h2>
+        </Link>
       </div>
       
       {/* right section */}
       <div className="hidden md:block"> 
         <ul className='flex items-center justify-between gap-8 '>
           <Link to="/"><li className='font-poppins font-semibold text-lg cursor-pointer'>Home</li></Link>
-          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center"
-              onClick={() => toggleSubMenu(0)}>
+          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center nav-item"
+              onMouseEnter={() => openSubMenu(0)}
+              onMouseLeave={() => setActiveSubMenu(null)}>
             Insights <FaAngleDown />
             <AnimatePresence>
               {activeSubMenu === 0 && (
@@ -54,8 +75,9 @@ const Navbar = () => {
           </li>
         
           {/* Services */}
-          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center"
-              onClick={() => toggleSubMenu(1)}>
+          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center nav-item"
+              onMouseEnter={() => openSubMenu(1)}
+              onMouseLeave={() => setActiveSubMenu(null)}>
             Services <FaAngleDown />
             <AnimatePresence>
               {activeSubMenu === 1 && (
@@ -75,8 +97,9 @@ const Navbar = () => {
             </AnimatePresence>
           </li>
           {/* Blog */}
-          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center"
-              onClick={() => toggleSubMenu(2)}>
+          <li className="font-poppins font-semibold text-lg relative cursor-pointer flex gap-2 items-center nav-item"
+              onMouseEnter={() => openSubMenu(2)}
+              onMouseLeave={() => setActiveSubMenu(null)}>
             Blog <FaAngleDown />
             <AnimatePresence>
               {activeSubMenu === 2 && (
@@ -87,9 +110,9 @@ const Navbar = () => {
                   transition={{ duration: 0.3 }}
                   className="absolute top-full left-0 z-10 bg-white py-2 shadow-md rounded-md cursor-pointer w-[300px]"
                 >
-                  <Link to="/"><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>Machine Learning</li></Link>
-                  <Link to="/"><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>AWS Cloud Migration</li></Link>
-                  <Link to="/"><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>Evolution of Technologies</li></Link>
+                  <Link to="/" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>Machine Learning</li></Link>
+                  <Link to="/" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>AWS Cloud Migration</li></Link>
+                  <Link to="/" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2 text-black'>Evolution of Technologies</li></Link>
                 </motion.ul>
               )}
             </AnimatePresence>
@@ -121,7 +144,7 @@ const Navbar = () => {
               <Link to="/" onClick={closeMenu}><li className='font-poppins font-semibold  my-2'>Home</li></Link>
             
               {/* Insights */}
-              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center"
+              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center nav-item"
                   onClick={() => toggleSubMenu(0)}>
                 Insights <FaAngleDown />
                 <AnimatePresence>
@@ -142,7 +165,7 @@ const Navbar = () => {
                 </AnimatePresence>
               </li>
               {/* Services */}
-              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center"
+              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center nav-item"
                   onClick={() => toggleSubMenu(1)}>
                 Services <FaAngleDown />
                 <AnimatePresence>
@@ -157,13 +180,13 @@ const Navbar = () => {
                       <Link to="/full-stack" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2'>Full Stack Development</li></Link>
                       <Link to="/cloud-migration" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2'>Cloud Migrations</li></Link>
                       <Link to="/product-development" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2'>Product Development</li></Link>
-                   
-                      <Link to="/software-consulting" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2'>Software Consulting</li></Link> </motion.ul>
+                      <Link to="/software-consulting" onClick={closeMenu}><li className='font-poppins font-semibold text-lg px-4 py-2'>Software Consulting</li></Link>
+                    </motion.ul>
                   )}
                 </AnimatePresence>
               </li>
               {/* Blog */}
-              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center"
+              <li className="font-poppins font-semibold relative my-2 cursor-pointer flex gap-2 items-center nav-item"
                   onClick={() => toggleSubMenu(2)}>
                 Blog <FaAngleDown />
                 <AnimatePresence>
