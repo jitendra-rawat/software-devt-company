@@ -6,8 +6,8 @@ const Section = () => {
     <div className="px-4 lg:px-0 lg:max-w-7xl mx-auto container flex flex-wrap my-36">
       {/* Left Section with Image */}
       <div className="w-full md:w-1/2">
-        <img className='w-[400px] grayscale hover:grayscale-0 rounded-xl relative lg:left-40' src="http://raditsoftware.com/img/featured-image-1.jpg" alt="Section Image" />
-        <img className='w-[450px] grayscale hover:grayscale-0 rounded-xl relative lg:bottom-28' src="http://raditsoftware.com/img/featured-image-2.jpg" alt="Section Image" />
+        <img className='w-[400px] grayscale hover:grayscale-0 rounded-xl relative lg:left-40' src="https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849825_960_720.jpg" alt="Section Image" />
+        <img className='w-[450px] grayscale hover:grayscale-0 rounded-xl relative lg:bottom-28' src="https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_960_720.jpg" alt="Section Image" />
       </div>
 
       {/* Right Section with Text */}
